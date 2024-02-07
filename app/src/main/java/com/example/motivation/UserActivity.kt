@@ -22,7 +22,7 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
 
         supportActionBar?.hide()
 
-        verifyUserName()
+        
     }
 
     override fun onClick(v: View) {
@@ -32,21 +32,14 @@ class UserActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun verifyUserName(){
-        Log.d("UserActivity", "Starting Main Activity")
-        val name = SecurityPreferences(this).getString(MotivationConstants.KEY.USER_NAME)
-        Log.d("UserActivity", "User name: $name")
-        if (name != ""){
-            Log.d("UserActivity", "Nome não vazio")
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }
-    }
+
 
     private fun handleSave() {
         val name = binding.editName.text.toString()
         if (name != "") {
             SecurityPreferences(this).storeString(MotivationConstants.KEY.USER_NAME, name)
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
         } else {
             Toast.makeText(this, R.string.validation_mandatory_name, Toast.LENGTH_LONG).show()
         }
